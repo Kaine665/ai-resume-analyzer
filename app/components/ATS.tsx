@@ -29,7 +29,7 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
 
   // Determine subtitle based on score
   const subtitle =
-    score > 69 ? "Great Job!" : score > 49 ? "Good Start" : "Needs Improvement";
+    score > 69 ? "做得很好！" : score > 49 ? "良好的开始" : "需要改进";
 
   return (
     <div

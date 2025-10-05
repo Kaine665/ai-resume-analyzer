@@ -3,7 +3,7 @@ import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
 import { usePuterStore } from "~/lib/puter";
 import { useNavigate } from "react-router";
-import { convertPdfToImage } from "~/lib/pdf2img";
+import { convertPdfToImage, extractPdfText } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
 import { prepareInstructions } from "../../constants";
 
@@ -37,8 +37,7 @@ const Upload = () => {
 
     setStatusText("正在转换为图片...");
     const imageFile = await convertPdfToImage(file);
-    if (!imageFile.file)
-      return setStatusText("错误：PDF 转图片失败");
+    if (!imageFile.file) return setStatusText("错误：PDF 转图片失败");
 
     setStatusText("正在上传图片...");
     const uploadedImage = await fs.upload([imageFile.file]);
@@ -57,13 +56,22 @@ const Upload = () => {
     };
     await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
-    setStatusText("正在分析...");
+    setStatusText("正在提取文本内容...");
+    let fileText: string;
 
-    // 读取上传的文件内容
-    const fileBlob = await fs.read(uploadedFile.path);
-    if (!fileBlob) return setStatusText("错误：读取上传文件失败");
-
-    const fileText = await fileBlob.text();
+    if (file.type === "application/pdf") {
+      // 对于PDF文件，使用PDF文本提取
+      try {
+        fileText = await extractPdfText(file);
+      } catch (error) {
+        return setStatusText("错误：PDF文本提取失败");
+      }
+    } else {
+      // 对于其他文件类型，使用原来的方法
+      const fileBlob = await fs.read(uploadedFile.path);
+      if (!fileBlob) return setStatusText("错误：读取上传文件失败");
+      fileText = await fileBlob.text();
+    }
 
     // 添加文本截断功能
     const truncateText = (text: string, maxLength: number = 50000) => {
