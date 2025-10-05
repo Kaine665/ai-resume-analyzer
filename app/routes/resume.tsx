@@ -6,8 +6,8 @@ import ATS from "~/components/ATS";
 import Details from "~/components/Details";
 
 export const meta = () => ([
-    { title: 'Resumind | Review ' },
-    { name: 'description', content: 'Detailed overview of your resume' },
+    { title: 'Resumind | 简历评估' },
+    { name: 'description', content: '你的简历详细分析' },
 ])
 
 const Resume = () => {
@@ -54,7 +54,7 @@ const Resume = () => {
             <nav className="resume-nav">
                 <Link to="/" className="back-button">
                     <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5" />
-                    <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
+                    <span className="text-gray-800 text-sm font-semibold">返回首页</span>
                 </Link>
             </nav>
             <div className="flex flex-row w-full max-lg:flex-col-reverse">
@@ -65,14 +65,14 @@ const Resume = () => {
                                 <img
                                     src={imageUrl}
                                     className="w-full h-full object-contain rounded-2xl"
-                                    title="resume"
+                                    title="简历"
                                 />
                             </a>
                         </div>
                     )}
                 </section>
                 <section className="feedback-section">
-                    <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
+                    <h2 className="text-4xl !text-black font-bold">简历评估</h2>
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback} />

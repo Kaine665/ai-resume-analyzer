@@ -54,6 +54,8 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 - **[Puter.js](https://jsm.dev/resumind-puterjs)** is a tiny client‑side SDK that adds serverless auth, storage, database, and AI (GPT, Claude, DALL·E, OCR…) straight into your browser app—no backend needed and costs borne by users.
 
+- **[OpenRouter](https://openrouter.ai/)** is a unified API for accessing multiple AI models including GPT, Claude, and others. This project has been updated to use OpenRouter for AI functionality while maintaining Puter.js for authentication and file storage.
+
 - **[Tailwind CSS](https://tailwindcss.com/)** is a utility-first CSS framework that allows developers to design custom user interfaces by applying low-level utility classes directly in HTML, streamlining the design process.
 
 - **[TypeScript](https://www.typescriptlang.org/)** is a superset of JavaScript that adds static typing, providing better tooling, code quality, and error detection for developers, making it ideal for building large-scale applications.
@@ -106,6 +108,22 @@ Install the project dependencies using npm:
 ```bash
 npm install
 ```
+
+**Environment Setup**
+
+Create a `.env` file in the root directory and add your OpenRouter API key:
+
+```bash
+cp .env.example .env
+```
+
+Edit the `.env` file and add your OpenRouter API key:
+
+```env
+VITE_OPENROUTER_API_KEY=your_openrouter_api_key_here
+```
+
+You can get your API key from [OpenRouter](https://openrouter.ai/keys).
 
 **Running the Project**
 

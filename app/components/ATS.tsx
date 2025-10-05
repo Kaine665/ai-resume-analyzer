@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 interface Suggestion {
   type: "good" | "improve";
@@ -12,33 +12,34 @@ interface ATSProps {
 
 const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
   // Determine background gradient based on score
-  const gradientClass = score > 69
-    ? 'from-green-100'
-    : score > 49
-      ? 'from-yellow-100'
-      : 'from-red-100';
+  const gradientClass =
+    score > 69
+      ? "from-green-100"
+      : score > 49
+      ? "from-yellow-100"
+      : "from-red-100";
 
   // Determine icon based on score
-  const iconSrc = score > 69
-    ? '/icons/ats-good.svg'
-    : score > 49
-      ? '/icons/ats-warning.svg'
-      : '/icons/ats-bad.svg';
+  const iconSrc =
+    score > 69
+      ? "/icons/ats-good.svg"
+      : score > 49
+      ? "/icons/ats-warning.svg"
+      : "/icons/ats-bad.svg";
 
   // Determine subtitle based on score
-  const subtitle = score > 69
-    ? 'Great Job!'
-    : score > 49
-      ? 'Good Start'
-      : 'Needs Improvement';
+  const subtitle =
+    score > 69 ? "Great Job!" : score > 49 ? "Good Start" : "Needs Improvement";
 
   return (
-    <div className={`bg-gradient-to-b ${gradientClass} to-white rounded-2xl shadow-md w-full p-6`}>
+    <div
+      className={`bg-gradient-to-b ${gradientClass} to-white rounded-2xl shadow-md w-full p-6`}
+    >
       {/* Top section with icon and headline */}
       <div className="flex items-center gap-4 mb-6">
-        <img src={iconSrc} alt="ATS Score Icon" className="w-12 h-12" />
+        <img src={iconSrc} alt="ATS评分图标" className="w-12 h-12" />
         <div>
-          <h2 className="text-2xl font-bold">ATS Score - {score}/100</h2>
+          <h2 className="text-2xl font-bold">ATS评分 - {score}/100</h2>
         </div>
       </div>
 
@@ -46,7 +47,7 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-2">{subtitle}</h3>
         <p className="text-gray-600 mb-4">
-          This score represents how well your resume is likely to perform in Applicant Tracking Systems used by employers.
+          此评分代表您的简历在雇主的招聘要求上的表现
         </p>
 
         {/* Suggestions list */}
@@ -54,11 +55,21 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
           {suggestions.map((suggestion, index) => (
             <div key={index} className="flex items-start gap-3">
               <img
-                src={suggestion.type === "good" ? "/icons/check.svg" : "/icons/warning.svg"}
-                alt={suggestion.type === "good" ? "Check" : "Warning"}
+                src={
+                  suggestion.type === "good"
+                    ? "/icons/check.svg"
+                    : "/icons/warning.svg"
+                }
+                alt={suggestion.type === "good" ? "正确" : "警告"}
                 className="w-5 h-5 mt-1"
               />
-              <p className={suggestion.type === "good" ? "text-green-700" : "text-amber-700"}>
+              <p
+                className={
+                  suggestion.type === "good"
+                    ? "text-green-700"
+                    : "text-amber-700"
+                }
+              >
                 {suggestion.tip}
               </p>
             </div>
@@ -68,10 +79,10 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
 
       {/* Closing encouragement */}
       <p className="text-gray-700 italic">
-        Keep refining your resume to improve your chances of getting past ATS filters and into the hands of recruiters.
+        继续完善您的简历，以提高通过ATS筛选并到达招聘人员手中的机会。
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default ATS
+export default ATS;
