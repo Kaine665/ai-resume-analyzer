@@ -26,18 +26,29 @@ export default function Home() {
     const loadResumes = async () => {
       setLoadingResumes(true);
 
-      const resumes = (await kv.list("resume:*", true)) as KVItem[];
+      try {
+        const resumes = (await kv.list("resume:*", true)) as KVItem[];
 
-      const parsedResumes = resumes?.map(
-        (resume) => JSON.parse(resume.value) as Resume
-      );
+        const parsedResumes = resumes?.map(
+          (resume) => JSON.parse(resume.value) as Resume
+        );
 
-      setResumes(parsedResumes || []);
-      setLoadingResumes(false);
+        setResumes(parsedResumes || []);
+      } catch (error) {
+        console.error("Failed to load resumes:", error);
+        setResumes([]);
+      } finally {
+        setLoadingResumes(false);
+      }
     };
 
-    loadResumes();
-  }, []);
+    // 只有在用户已认证且Puter准备就绪时才加载简历
+    if (auth.isAuthenticated) {
+      loadResumes();
+    } else {
+      setLoadingResumes(false);
+    }
+  }, [auth.isAuthenticated, kv]);
 
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">

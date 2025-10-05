@@ -343,10 +343,15 @@ export const usePuterStore = create<PuterStore>((set, get) => {
   const setKV = async (key: string, value: string) => {
     const puter = getPuter();
     if (!puter) {
-      setError("Puter.js not available");
-      return;
+      console.error("Puter.js not available for KV set operation");
+      return false;
     }
-    return puter.kv.set(key, value);
+    try {
+      return await puter.kv.set(key, value);
+    } catch (error) {
+      console.error("KV set operation failed:", error);
+      return false;
+    }
   };
 
   const deleteKV = async (key: string) => {
@@ -361,13 +366,18 @@ export const usePuterStore = create<PuterStore>((set, get) => {
   const listKV = async (pattern: string, returnValues?: boolean) => {
     const puter = getPuter();
     if (!puter) {
-      setError("Puter.js not available");
-      return;
+      console.error("Puter.js not available for KV list operation");
+      return [];
     }
     if (returnValues === undefined) {
       returnValues = false;
     }
-    return puter.kv.list(pattern, returnValues);
+    try {
+      return await puter.kv.list(pattern, returnValues);
+    } catch (error) {
+      console.error("KV list operation failed:", error);
+      return [];
+    }
   };
 
   const flushKV = async () => {
