@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 class OpenRouterClient {
   private client: OpenAI;
-  private defaultModel: string = "anthropic/claude-3.5-sonnet";
+  private defaultModel: string = "anthropic/claude-3.7-sonnet";
 
   constructor(apiKey?: string) {
     this.client = new OpenAI({
@@ -159,12 +159,12 @@ class OpenRouterClient {
       index: choice.index,
       message: {
         role: choice.message.role,
-        content: choice.message.content || '',
+        content: choice.message.content || "",
         refusal: null,
         annotations: [],
       },
       logprobs: null,
-      finish_reason: choice.finish_reason || 'stop',
+      finish_reason: choice.finish_reason || "stop",
       usage: [
         {
           type: "tokens",
