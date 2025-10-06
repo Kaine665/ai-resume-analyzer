@@ -121,7 +121,7 @@ class OpenRouterClient {
       ];
 
       const response = await this.client.chat.completions.create({
-        model: "anthropic/claude-3.5-sonnet", // 使用支持视觉的模型
+        model: "anthropic/claude-3.7-sonnet", // 使用支持视觉的模型
         messages: messages as any,
         temperature: 0.1,
         max_tokens: 2000,
